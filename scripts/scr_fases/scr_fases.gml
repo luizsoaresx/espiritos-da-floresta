@@ -1,21 +1,7 @@
-// ==========================================================
-// SCR_FASES - Tabela com todas as fases da campanha
-// Cada fase define: textos, sala, fundo, ondas de inimigos
-// e qual lenda é resgatada ao vencer.
-//
-// Ondas: lista de inimigos. Se o inimigo tiver x/y, usa essa
-// posição; se não, a batalha posiciona automaticamente.
-// O número de inimigos cresce junto com o tamanho do elenco.
-// ==========================================================
-
-
 function fases_criar()
 {
     return [
 
-        // ======================================
-        // FASE 1 - FLORESTA (elenco: 1 lenda)
-        // ======================================
         {
             rotulo: "FASE 1",
             nome: "A FLORESTA",
@@ -23,7 +9,7 @@ function fases_criar()
             tema: "Desmatamento",
             sala: rm_game,
             fundo: spr_fundo_floresta,
-            recompensa: 1,      // Iara
+            recompensa: 1,
             vitoria: "A floresta respira aliviada.",
             clima: "vagalumes",
             ondas: [
@@ -32,9 +18,6 @@ function fases_criar()
             ]
         },
 
-        // ======================================
-        // FASE 2 - RIO ARAGUAIA (elenco: 2 lendas)
-        // ======================================
         {
             rotulo: "FASE 2",
             nome: "RIO ARAGUAIA",
@@ -42,7 +25,7 @@ function fases_criar()
             tema: "Poluição dos rios",
             sala: rm_game_fase2,
             fundo: spr_fundo_rio,
-            recompensa: 2,      // Matinta Pereira
+            recompensa: 2,
             vitoria: "O rio volta a correr limpo.",
             clima: "vagalumes",
             ondas: [
@@ -54,9 +37,6 @@ function fases_criar()
             ]
         },
 
-        // ======================================
-        // FASE 3 - CERRADO (elenco: 3 lendas)
-        // ======================================
         {
             rotulo: "FASE 3",
             nome: "CERRADO",
@@ -64,7 +44,7 @@ function fases_criar()
             tema: "Queimadas",
             sala: rm_game_fase3,
             fundo: spr_fundo_cerrado,
-            recompensa: 3,      // Boitatá
+            recompensa: 3,
             vitoria: "As chamas se apagam e o Cerrado renasce.",
             clima: "brasas",
             ondas: [
@@ -74,9 +54,6 @@ function fases_criar()
             ]
         },
 
-        // ======================================
-        // FASE 4 - MATA ATLÂNTICA (elenco: 4 lendas)
-        // ======================================
         {
             rotulo: "FASE 4",
             nome: "MATA ATLÂNTICA",
@@ -84,7 +61,7 @@ function fases_criar()
             tema: "Tráfico de animais",
             sala: rm_game_fase4,
             fundo: spr_fundo_mata,
-            recompensa: 4,      // Saci-Pererê
+            recompensa: 4,
             vitoria: "As araras voltam a voar livres.",
             clima: "vagalumes",
             ondas: [
@@ -94,9 +71,6 @@ function fases_criar()
             ]
         },
 
-        // ======================================
-        // FASE 5 - PANTANAL (elenco: 5 lendas)
-        // ======================================
         {
             rotulo: "FASE 5",
             nome: "PANTANAL",
@@ -104,7 +78,7 @@ function fases_criar()
             tema: "Agrotóxicos",
             sala: rm_game_fase5,
             fundo: spr_fundo_pantanal,
-            recompensa: 5,      // Curupira
+            recompensa: 5,
             vitoria: "As águas do Pantanal voltam a ter vida.",
             clima: "veneno",
             ondas: [
@@ -114,9 +88,6 @@ function fases_criar()
             ]
         },
 
-        // ======================================
-        // FASE 6 - FINAL (elenco completo)
-        // ======================================
         {
             rotulo: "FASE FINAL",
             nome: "CORAÇÃO DA FLORESTA",
@@ -124,7 +95,7 @@ function fases_criar()
             tema: "Ganância",
             sala: rm_game_fase6,
             fundo: spr_fundo_final,
-            recompensa: -1,     // sem recompensa: leva ao final do jogo
+            recompensa: -1,
             vitoria: "A natureza venceu!",
             clima: "cinzas",
             ondas: [
@@ -136,8 +107,6 @@ function fases_criar()
     ];
 }
 
-
-// Quantidade de fases
 function fases_total()
 {
     if (!variable_global_exists("fases"))
@@ -148,8 +117,6 @@ function fases_total()
     return array_length(global.fases);
 }
 
-
-// Dados da fase n (1, 2, 3...)
 function fase_dados(_n)
 {
     if (!variable_global_exists("fases"))
@@ -162,8 +129,6 @@ function fase_dados(_n)
     return global.fases[_i];
 }
 
-
-// Quantas lendas já foram resgatadas
 function lendas_desbloqueadas()
 {
     var _n = 0;
@@ -179,8 +144,6 @@ function lendas_desbloqueadas()
     return _n;
 }
 
-
-// Vagas na equipe: 3 no começo, 4 quando o elenco chega a 4 lendas
 function equipe_vagas()
 {
     return (lendas_desbloqueadas() >= 4) ? 4 : 3;

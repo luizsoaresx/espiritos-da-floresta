@@ -1,7 +1,3 @@
-// ==========================================
-// ATALHO DE TESTE: F9 libera todas as fases e lendas
-// ==========================================
-
 if (keyboard_check_pressed(vk_f9))
 {
     global.fase_desbloqueada = fases_total();
@@ -12,19 +8,10 @@ if (keyboard_check_pressed(vk_f9))
     }
 }
 
-
-// ==========================================
-// CLIQUE
-// ==========================================
-
 if (mouse_check_button_pressed(mb_left))
 {
     var mx = device_mouse_x_to_gui(0);
     var my = device_mouse_y_to_gui(0);
-
-    // ==========================================
-    // FASES
-    // ==========================================
 
     for (var i = 0; i < fases_total(); i++)
     {
@@ -43,10 +30,6 @@ if (mouse_check_button_pressed(mb_left))
             }
         }
     }
-
-    // ==========================================
-    // VOLTAR
-    // ==========================================
 
     if (
         mx >= botao_voltar_x &&

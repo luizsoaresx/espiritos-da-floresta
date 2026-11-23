@@ -1,4 +1,3 @@
-// IARA - SUPORTE / CURA
 event_inherited();
 
 nome = "Iara";
@@ -21,8 +20,6 @@ ataque2_tipo = "cura";
 ataque2_alvo = "aliado_todos";
 ataque2_valor = 16;
 
-
-// Heróis ficam à esquerda olhando para a direita
 escala_sprite = 2;
 image_xscale = -escala_sprite;
 image_yscale = escala_sprite;

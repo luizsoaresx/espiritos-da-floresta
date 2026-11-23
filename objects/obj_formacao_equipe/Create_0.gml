@@ -1,21 +1,10 @@
-// ==========================================
-// VAGAS NA EQUIPE
-// 3 vagas no começo; 4 quando o elenco chega a 4 lendas
-// ==========================================
-
 vagas = equipe_vagas();
-
-
-// ==========================================
-// TAMANHO DOS CARDS DA EQUIPE
-// ==========================================
 
 card_largura = 150;
 card_altura = 150;
 
 equipe_y = 132;
 
-// slots centralizados no painel
 var _gap = (vagas == 4) ? 55 : 125;
 var _total = vagas * card_largura + (vagas - 1) * _gap;
 var _x0 = 480 - _total / 2;
@@ -26,11 +15,6 @@ for (var i = 0; i < vagas; i++)
 {
     array_push(slots_x, _x0 + i * (card_largura + _gap));
 }
-
-
-// ==========================================
-// PERSONAGENS DISPONÍVEIS (uma linha com todos)
-// ==========================================
 
 n_personagens = array_length(global.personagens);
 
@@ -49,11 +33,6 @@ for (var i = 0; i < n_personagens; i++)
     array_push(personagens_x, _px0 + i * (personagem_largura + _gap_p));
 }
 
-
-// ==========================================
-// BOTÕES
-// ==========================================
-
 botao_comecar_x = 760;
 botao_comecar_y = 462;
 
@@ -65,12 +44,6 @@ botao_voltar_y = 462;
 
 botao_voltar_largura = 150;
 botao_voltar_altura = 44;
-
-
-// ==========================================
-// SLOTS DA EQUIPE (-1 = vazio)
-// Começa com a última equipe usada
-// ==========================================
 
 slots = array_create(vagas, -1);
 
@@ -90,8 +63,6 @@ if (variable_global_exists("equipe"))
     }
 }
 
-
-// Está na equipe?
 na_equipe = function(_id)
 {
     for (var i = 0; i < vagas; i++)
@@ -105,8 +76,6 @@ na_equipe = function(_id)
     return false;
 };
 
-
-// Equipe tem alguém?
 equipe_ok = function()
 {
     for (var i = 0; i < vagas; i++)

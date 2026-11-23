@@ -1,4 +1,3 @@
-
 botao_largura = 300;
 botao_altura = 56;
 
@@ -11,8 +10,6 @@ botao_equipe_y = 364;
 botao_menu_x = 330;
 botao_menu_y = 432;
 
-
-// Dica sorteada para a próxima tentativa
 var _dicas = [
     "Dica: a Iara cura a equipe e remove fogo e veneno.",
     "Dica: o Curupira protege o time com a Proteção da Mata.",

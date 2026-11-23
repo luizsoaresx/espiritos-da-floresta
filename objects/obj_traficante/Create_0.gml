@@ -1,4 +1,3 @@
-// TRAFICANTE DE ANIMAIS (fase 4)
 event_inherited();
 
 nome = "Traficante";
@@ -14,7 +13,6 @@ ataque_efeito_chance = 30;
 ataque_efeito_turnos = 1;
 ataque_efeito_valor = 0;
 
-// Inimigos ficam à direita olhando para a esquerda
 escala_sprite = 2;
 image_xscale = -escala_sprite;
 image_yscale = escala_sprite;

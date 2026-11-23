@@ -1,15 +1,3 @@
-// ==========================================================
-// SCR_UI - Sistema de interface do jogo
-// Funcoes reutilizaveis: fundo, molduras, paineis, botoes,
-// barras de vida, textos, etiquetas e efeitos.
-// Todas as telas usam estas funcoes para manter o mesmo visual.
-// ==========================================================
-
-
-// ==========================================================
-// INICIALIZACAO (paleta + fontes)
-// ==========================================================
-
 function ui_init()
 {
     if (variable_global_exists("ui_pronto"))
@@ -19,7 +7,6 @@ function ui_init()
 
     global.ui_pronto = true;
 
-    // Paleta
     global.ui_cor_ouro      = make_color_rgb(220, 190, 115);
     global.ui_cor_ouro_vivo = make_color_rgb(255, 232, 150);
     global.ui_cor_creme     = make_color_rgb(235, 225, 190);
@@ -28,18 +15,15 @@ function ui_init()
     global.ui_cor_pergaminho = make_color_rgb(205, 184, 138);
     global.ui_cor_tinta     = make_color_rgb(40, 45, 30);
 
-    // Fontes (se o asset nao existir, usa a fonte padrao = -1)
-    global.ui_f_titulo    = asset_get_index("fnt_titulo");
-    global.ui_f_subtitulo = asset_get_index("fnt_subtitulo");
-    global.ui_f_botao     = asset_get_index("fnt_botao");
-    global.ui_f_texto     = asset_get_index("fnt_texto");
-    global.ui_f_pequeno   = asset_get_index("fnt_pequeno");
+    global.ui_f_titulo    = fnt_titulo;
+    global.ui_f_subtitulo = fnt_subtitulo;
+    global.ui_f_botao     = fnt_botao;
+    global.ui_f_texto     = fnt_texto;
+    global.ui_f_pequeno   = fnt_pequeno;
 
     global.ui_hover_frame = false;
 }
 
-
-// Chamar no INICIO de todo Draw GUI que usa a UI
 function ui_begin()
 {
     ui_init();
@@ -53,8 +37,6 @@ function ui_begin()
     draw_set_valign(fa_middle);
 }
 
-
-// Restaura o estado de desenho
 function ui_reset()
 {
     gpu_set_blendmode(bm_normal);
@@ -65,8 +47,6 @@ function ui_reset()
     draw_set_valign(fa_top);
 }
 
-
-// Chamar no FIM: ajusta o cursor (mao sobre botoes) e restaura o estado
 function ui_fim()
 {
     if (variable_global_exists("ui_hover_frame"))
@@ -77,11 +57,6 @@ function ui_fim()
     ui_reset();
 }
 
-
-// ==========================================================
-// MOUSE
-// ==========================================================
-
 function ui_mouse_sobre(_x1, _y1, _x2, _y2)
 {
     var mx = device_mouse_x_to_gui(0);
@@ -90,12 +65,6 @@ function ui_mouse_sobre(_x1, _y1, _x2, _y2)
     return (mx >= _x1 && mx <= _x2 && my >= _y1 && my <= _y2);
 }
 
-
-// ==========================================================
-// TEXTO
-// ==========================================================
-
-// Texto com opcao de sombra e alinhamento
 function ui_texto_ex(_x, _y, _texto, _cor, _fonte, _halign, _valign, _sombra)
 {
     ui_init();
@@ -118,29 +87,21 @@ function ui_texto_ex(_x, _y, _texto, _cor, _fonte, _halign, _valign, _sombra)
     draw_text(_x, _y, _texto);
 }
 
-
-// Centralizado, com sombra
 function ui_texto(_x, _y, _texto, _cor, _fonte)
 {
     ui_texto_ex(_x, _y, _texto, _cor, _fonte, fa_center, fa_middle, true);
 }
 
-
-// Alinhado a esquerda, com sombra
 function ui_texto_esq(_x, _y, _texto, _cor, _fonte)
 {
     ui_texto_ex(_x, _y, _texto, _cor, _fonte, fa_left, fa_middle, true);
 }
 
-
-// Centralizado, sem sombra (para fundos claros)
 function ui_texto_liso(_x, _y, _texto, _cor, _fonte)
 {
     ui_texto_ex(_x, _y, _texto, _cor, _fonte, fa_center, fa_middle, false);
 }
 
-
-// Paragrafo com quebra automatica de linha
 function ui_paragrafo(_x, _y, _texto, _cor, _fonte, _largura, _altura_linha)
 {
     ui_init();
@@ -163,8 +124,6 @@ function ui_paragrafo(_x, _y, _texto, _cor, _fonte, _largura, _altura_linha)
     draw_set_valign(fa_middle);
 }
 
-
-// Titulo de tela (flutua levemente)
 function ui_titulo(_y, _texto)
 {
     ui_init();
@@ -174,11 +133,6 @@ function ui_titulo(_y, _texto)
     ui_texto(480, _y + flut, _texto, global.ui_cor_ouro, global.ui_f_titulo);
 }
 
-
-// ==========================================================
-// FORMAS E DECORACAO
-// ==========================================================
-
 function ui_losango(_x, _y, _r, _cor)
 {
     draw_set_color(_cor);
@@ -187,8 +141,6 @@ function ui_losango(_x, _y, _r, _cor)
     draw_triangle(_x, _y - _r, _x - _r, _y, _x, _y + _r, false);
 }
 
-
-// Linha decorativa com losango no centro
 function ui_divisor(_x, _y, _largura)
 {
     ui_init();
@@ -208,8 +160,6 @@ function ui_divisor(_x, _y, _largura)
     ui_losango(_x + _largura / 2, _y, 3, global.ui_cor_ouro);
 }
 
-
-// Moldura dourada da tela (960x540)
 function ui_moldura()
 {
     ui_init();
@@ -232,25 +182,20 @@ function ui_moldura()
     ui_losango(935, 515, 8, o);
 }
 
-
-// Painel com sombra, leve degrade e borda dupla
 function ui_painel(_x1, _y1, _x2, _y2, _cor, _borda, _alpha = 1)
 {
     ui_init();
 
-    // sombra
     draw_set_color(global.ui_cor_sombra);
     draw_set_alpha(0.45 * _alpha);
     draw_rectangle(_x1 + 4, _y1 + 5, _x2 + 4, _y2 + 5, false);
 
-    // corpo
     var topo = merge_color(_cor, c_white, 0.08);
     var base = merge_color(_cor, c_black, 0.25);
 
     draw_set_alpha(_alpha);
     draw_rectangle_color(_x1, _y1, _x2, _y2, topo, topo, base, base, false);
 
-    // bordas
     draw_set_color(_borda);
     draw_rectangle(_x1, _y1, _x2, _y2, true);
 
@@ -260,8 +205,6 @@ function ui_painel(_x1, _y1, _x2, _y2, _cor, _borda, _alpha = 1)
     draw_set_alpha(1);
 }
 
-
-// Etiqueta (pilula) com texto. Retorna a largura.
 function ui_etiqueta(_cx, _cy, _texto, _cor_fundo, _cor_texto, _fonte)
 {
     ui_init();
@@ -282,8 +225,6 @@ function ui_etiqueta(_cx, _cy, _texto, _cor_fundo, _cor_texto, _fonte)
     return w;
 }
 
-
-// Cor associada a funcao do personagem
 function ui_cor_funcao(_funcao)
 {
     if (_funcao == "DPS")
@@ -314,32 +255,21 @@ function ui_cor_funcao(_funcao)
     return make_color_rgb(140, 95, 45);
 }
 
-
-// Cadeado desenhado com formas simples
 function ui_cadeado(_cx, _cy, _cor)
 {
     draw_set_alpha(1);
     draw_set_color(_cor);
 
-    // argola
     draw_circle(_cx, _cy - 2, 9, true);
     draw_circle(_cx, _cy - 2, 8, true);
 
-    // corpo
     draw_rectangle(_cx - 14, _cy - 2, _cx + 14, _cy + 20, false);
 
-    // buraco da chave
     draw_set_color(global.ui_cor_sombra);
     draw_circle(_cx, _cy + 7, 3, false);
     draw_rectangle(_cx - 1, _cy + 8, _cx + 1, _cy + 14, false);
 }
 
-
-// ==========================================================
-// FUNDO E EFEITOS
-// ==========================================================
-
-// Fundo da tela: floresta escurecida + degrade
 function ui_fundo(_usar_imagem = true, _cor_escura = -1, _cor_media = -1)
 {
     ui_init();
@@ -365,8 +295,6 @@ function ui_fundo(_usar_imagem = true, _cor_escura = -1, _cor_media = -1)
     draw_set_alpha(1);
 }
 
-
-// Vagalumes animados (sem precisar de variaveis de instancia)
 function ui_vagalumes(_qtd)
 {
     var t = current_time / 1000;
@@ -395,8 +323,6 @@ function ui_vagalumes(_qtd)
     draw_set_alpha(1);
 }
 
-
-// Raios de luz giratorios (tela de recompensa)
 function ui_raios(_cx, _cy, _raio, _qtd, _cor)
 {
     var rot = current_time / 55;
@@ -422,8 +348,6 @@ function ui_raios(_cx, _cy, _raio, _qtd, _cor)
     draw_set_alpha(1);
 }
 
-
-// Entrada suave (fade) ao abrir a sala. Chamar no fim do Draw GUI.
 function ui_fade_in()
 {
     if (!variable_global_exists("ui_fade_sala") || global.ui_fade_sala != room)
@@ -443,14 +367,6 @@ function ui_fade_in()
     }
 }
 
-
-// ==========================================================
-// BOTAO
-// ==========================================================
-
-// Desenha um botao com hover e efeito de clique.
-// _fonte = -1 usa a fonte padrao de botoes.
-// Retorna true se o mouse esta sobre o botao.
 function ui_botao(_x1, _y1, _x2, _y2, _texto, _cor, _ativo = true, _fonte = -1)
 {
     ui_init();
@@ -488,25 +404,21 @@ function ui_botao(_x1, _y1, _x2, _y2, _texto, _cor, _ativo = true, _fonte = -1)
         txt = c_white;
     }
 
-    // sombra
     draw_set_alpha(0.5);
     draw_set_color(global.ui_cor_sombra);
     draw_rectangle(_x1 + 3, _y1 + 5, _x2 + 3, _y2 + 5, false);
     draw_set_alpha(1);
 
-    // corpo
     var topo = merge_color(cor, c_white, 0.14);
     var base = merge_color(cor, c_black, 0.30);
 
     draw_rectangle_color(_x1, y1, _x2, y2, topo, topo, base, base, false);
 
-    // brilho superior
     draw_set_alpha(0.12);
     draw_set_color(c_white);
     draw_rectangle(_x1 + 2, y1 + 2, _x2 - 2, y1 + (y2 - y1) * 0.45, false);
     draw_set_alpha(1);
 
-    // bordas
     draw_set_color(borda);
     draw_rectangle(_x1, y1, _x2, y2, true);
 
@@ -514,7 +426,6 @@ function ui_botao(_x1, _y1, _x2, _y2, _texto, _cor, _ativo = true, _fonte = -1)
     draw_rectangle(_x1 + 3, y1 + 3, _x2 - 3, y2 - 3, true);
     draw_set_alpha(1);
 
-    // marcadores de hover
     if (sobre)
     {
         ui_losango(_x1 + 14, (y1 + y2) / 2, 4, borda);
@@ -526,12 +437,6 @@ function ui_botao(_x1, _y1, _x2, _y2, _texto, _cor, _ativo = true, _fonte = -1)
     return sobre;
 }
 
-
-// ==========================================================
-// BATALHA: BARRA DE VIDA, PLACA E DANO
-// ==========================================================
-
-// Barra de vida com rastro do dano
 function ui_barra(_x, _y, _w, _h, _hp, _hp_visual, _hp_max)
 {
     ui_init();
@@ -556,21 +461,18 @@ function ui_barra(_x, _y, _w, _h, _hp, _hp_visual, _hp_max)
 
     draw_set_alpha(1);
 
-    // fundo
     draw_set_color(make_color_rgb(10, 14, 12));
     draw_rectangle(_x - 2, _y - 2, _x + _w + 2, _y + _h + 2, false);
 
     draw_set_color(make_color_rgb(38, 44, 38));
     draw_rectangle(_x, _y, _x + _w, _y + _h, false);
 
-    // rastro do dano
     if (pct_v > pct)
     {
         draw_set_color(make_color_rgb(235, 235, 215));
         draw_rectangle(_x + _w * pct, _y, _x + _w * pct_v, _y + _h, false);
     }
 
-    // vida atual
     if (pct > 0)
     {
         var topo = merge_color(cor, c_white, 0.35);
@@ -579,13 +481,10 @@ function ui_barra(_x, _y, _w, _h, _hp, _hp_visual, _hp_max)
         draw_rectangle_color(_x, _y, _x + _w * pct, _y + _h, topo, topo, base, base, false);
     }
 
-    // borda
     draw_set_color(global.ui_cor_ouro);
     draw_rectangle(_x - 2, _y - 2, _x + _w + 2, _y + _h + 2, true);
 }
 
-
-// Placa do combatente: nome + barra + numeros
 function ui_hud_combatente(_cx, _y, _nome, _hp, _hp_visual, _hp_max, _larg)
 {
     ui_init();
@@ -613,8 +512,6 @@ function ui_hud_combatente(_cx, _y, _nome, _hp, _hp_visual, _hp_max, _larg)
     ui_texto(_cx, by + bh / 2, string(_hp) + " / " + string(_hp_max), c_white, global.ui_f_pequeno);
 }
 
-
-// Numero flutuante generico que sobe e desaparece (dano, cura, etc.)
 function ui_numero_flutuante(_x, _y, _texto, _cor, _timer, _timer_max)
 {
     ui_init();
@@ -629,15 +526,11 @@ function ui_numero_flutuante(_x, _y, _texto, _cor, _timer, _timer_max)
     draw_set_alpha(1);
 }
 
-
-// Numero de dano que sobe e desaparece
 function ui_dano_flutuante(_x, _y, _dano, _timer, _timer_max)
 {
     ui_numero_flutuante(_x, _y, "-" + string(_dano), make_color_rgb(255, 95, 70), _timer, _timer_max);
 }
 
-
-// Anel pulsante usado para destacar um alvo selecionável
 function ui_anel_alvo(_x, _y, _raio, _cor)
 {
     var pulso = 0.5 + 0.5 * sin(current_time / 150);
@@ -650,12 +543,6 @@ function ui_anel_alvo(_x, _y, _raio, _cor)
     draw_set_alpha(1);
 }
 
-
-// ==========================================================
-// CARTOES
-// ==========================================================
-
-// Cartao de fase (selecao de fases)
 function ui_cartao_fase(_x, _y, _w, _h, _rotulo, _nome, _desc, _liberada, _hover, _sprite = spr_fundo_floresta)
 {
     ui_init();
@@ -669,7 +556,6 @@ function ui_cartao_fase(_x, _y, _w, _h, _rotulo, _nome, _desc, _liberada, _hover
         borda = _hover ? global.ui_cor_ouro_vivo : global.ui_cor_ouro;
     }
 
-    // brilho externo no hover
     if (_hover && _liberada)
     {
         draw_set_alpha(0.5);
@@ -680,7 +566,6 @@ function ui_cartao_fase(_x, _y, _w, _h, _rotulo, _nome, _desc, _liberada, _hover
 
     ui_painel(_x, _y, _x + _w, _y + _h, cor, borda, 1);
 
-    // miniatura da floresta
     var mx = _x + 12;
     var my = _y + 12;
     var mw = _w - 24;
@@ -710,8 +595,6 @@ function ui_cartao_fase(_x, _y, _w, _h, _rotulo, _nome, _desc, _liberada, _hover
     ui_texto(cx, _y + 200, _desc, cor_desc, global.ui_f_pequeno);
 }
 
-
-// Cartao de personagem da enciclopedia (pergaminho)
 function ui_cartao_lenda(_x, _y, _w, _h, _sprite, _nome, _funcao, _hover, _escala = 1)
 {
     ui_init();
@@ -727,7 +610,6 @@ function ui_cartao_lenda(_x, _y, _w, _h, _sprite, _nome, _funcao, _hover, _escal
     var cx = _x + _w / 2;
     var cy = y1 + _h * 0.42;
 
-    // aura atras do personagem
     draw_circle_color(cx, cy, min(_w, _h) * 0.36, make_color_rgb(244, 234, 200), global.ui_cor_pergaminho, false);
 
     draw_sprite_ext(_sprite, current_time / 160, cx, cy, _escala, _escala, 0, c_white, 1);
@@ -740,12 +622,6 @@ function ui_cartao_lenda(_x, _y, _w, _h, _sprite, _nome, _funcao, _hover, _escal
     }
 }
 
-
-// ==========================================================
-// NOVAS FUNÇÕES (fases 3 a 6)
-// ==========================================================
-
-// Placa compacta (usada quando há 3 ou mais combatentes no lado)
 function ui_hud_compacto(_cx, _y, _nome, _hp, _hp_visual, _hp_max, _larg)
 {
     ui_init();
@@ -773,8 +649,6 @@ function ui_hud_compacto(_cx, _y, _nome, _hp, _hp_visual, _hp_max, _larg)
     ui_texto(_cx, by + bh / 2, string(_hp) + " / " + string(_hp_max), c_white, global.ui_f_pequeno);
 }
 
-
-// Etiquetas de status embaixo da placa (fogo, veneno, escudo...)
 function ui_status(_cx, _y, _c)
 {
     if (_c.hp <= 0)
@@ -852,8 +726,6 @@ function ui_status(_cx, _y, _c)
     }
 }
 
-
-// Cartão de fase compacto (6 fases na tela)
 function ui_cartao_fase_compacto(_x, _y, _w, _h, _rotulo, _nome, _desc, _extra, _liberada, _hover, _sprite, _final)
 {
     ui_init();
@@ -877,7 +749,6 @@ function ui_cartao_fase_compacto(_x, _y, _w, _h, _rotulo, _nome, _desc, _extra, 
 
     ui_painel(_x, _y, _x + _w, _y + _h, cor, borda, 1);
 
-    // miniatura do cenário
     var mx = _x + 10;
     var my = _y + 10;
     var mw = _w - 20;
@@ -912,8 +783,6 @@ function ui_cartao_fase_compacto(_x, _y, _w, _h, _rotulo, _nome, _desc, _extra, 
     }
 }
 
-
-// Partículas de clima (desenhadas atrás dos combatentes)
 function ui_particulas(_tipo, _qtd)
 {
     if (_tipo == "vagalumes")

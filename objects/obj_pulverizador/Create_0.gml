@@ -1,4 +1,3 @@
-// PULVERIZADOR (fase 5)
 event_inherited();
 
 nome = "Pulverizador";
@@ -14,7 +13,6 @@ ataque_efeito_chance = 60;
 ataque_efeito_turnos = 3;
 ataque_efeito_valor = 7;
 
-// Inimigos ficam à direita olhando para a esquerda
 escala_sprite = 2;
 image_xscale = -escala_sprite;
 image_yscale = escala_sprite;

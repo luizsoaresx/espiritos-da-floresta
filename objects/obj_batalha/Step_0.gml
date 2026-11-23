@@ -1,10 +1,4 @@
-// ==========================================================
-// PAUSA
-// ==========================================================
-
 var _pode_pausar = (estado != "vitoria" && estado != "derrota");
-
-// Abrir / fechar com ESC ou P
 
 if (_pode_pausar || global.pausado)
 {
@@ -12,7 +6,6 @@ if (_pode_pausar || global.pausado)
     {
         if (global.pausado && pausa_confirmar != "")
         {
-            // ESC dentro da confirmação volta ao menu de pausa
             pausa_confirmar = "";
         }
         else
@@ -26,9 +19,6 @@ if (_pode_pausar || global.pausado)
         exit;
     }
 }
-
-
-// Clique no botão de pausa
 
 if (!global.pausado && _pode_pausar && mouse_check_button_pressed(mb_left))
 {
@@ -49,9 +39,6 @@ if (!global.pausado && _pode_pausar && mouse_check_button_pressed(mb_left))
     }
 }
 
-
-// Jogo pausado: só trata o menu de pausa
-
 if (global.pausado)
 {
     if (mouse_check_button_pressed(mb_left))
@@ -59,11 +46,8 @@ if (global.pausado)
         var _mx = device_mouse_x_to_gui(0);
         var _my = device_mouse_y_to_gui(0);
 
-        // ---------- CONFIRMAÇÃO ----------
-
         if (pausa_confirmar != "")
         {
-            // SIM
             if (
                 _mx >= pausa_sim_x && _mx <= pausa_sim_x + pausa_conf_largura &&
                 _my >= pausa_conf_y && _my <= pausa_conf_y + pausa_conf_altura
@@ -83,7 +67,6 @@ if (global.pausado)
                 }
             }
 
-            // NÃO
             else if (
                 _mx >= pausa_nao_x && _mx <= pausa_nao_x + pausa_conf_largura &&
                 _my >= pausa_conf_y && _my <= pausa_conf_y + pausa_conf_altura
@@ -93,11 +76,8 @@ if (global.pausado)
             }
         }
 
-        // ---------- MENU DE PAUSA ----------
-
         else
         {
-            // CONTINUAR
             if (
                 _mx >= pausa_btn_x && _mx <= pausa_btn_x + pausa_btn_largura &&
                 _my >= pausa_continuar_y && _my <= pausa_continuar_y + pausa_btn_altura
@@ -108,7 +88,6 @@ if (global.pausado)
                 congelar_anim(1);
             }
 
-            // REINICIAR
             else if (
                 _mx >= pausa_btn_x && _mx <= pausa_btn_x + pausa_btn_largura &&
                 _my >= pausa_reiniciar_y && _my <= pausa_reiniciar_y + pausa_btn_altura
@@ -117,7 +96,6 @@ if (global.pausado)
                 pausa_confirmar = "reiniciar";
             }
 
-            // SAIR PARA O MENU
             else if (
                 _mx >= pausa_btn_x && _mx <= pausa_btn_x + pausa_btn_largura &&
                 _my >= pausa_menu_y && _my <= pausa_menu_y + pausa_btn_altura
@@ -128,17 +106,10 @@ if (global.pausado)
         }
     }
 
-    // Nada da batalha avança enquanto pausado
     exit;
 }
 
-
 var _fps = game_get_speed(gamespeed_fps);
-
-
-// ==========================================================
-// TURNO DO JOGADOR: ESCOLHER ATAQUE (clique ou teclas 1 / 2)
-// ==========================================================
 
 if (estado == "jogador_ataque")
 {
@@ -196,16 +167,10 @@ if (estado == "jogador_ataque")
     }
 }
 
-
-// ==========================================================
-// TURNO DO JOGADOR: ESCOLHER ALVO
-// ==========================================================
-
 else if (estado == "jogador_alvo")
 {
     if (mouse_check_button_pressed(mb_left))
     {
-        // Cancelar e voltar a escolher o ataque
         if (point_in_rectangle(mouse_x, mouse_y, botao1_x, botao_y, botao2_x + botao_largura, botao_y + botao_altura))
         {
             estado = "jogador_ataque";
@@ -240,11 +205,6 @@ else if (estado == "jogador_alvo")
     }
 }
 
-
-// ==========================================================
-// VERIFICAR RESULTADO DA AÇÃO DO JOGADOR
-// ==========================================================
-
 if (estado == "verificar_acao")
 {
     timer++;
@@ -266,11 +226,6 @@ if (estado == "verificar_acao")
     }
 }
 
-
-// ==========================================================
-// HERÓI PRESO (atordoado): perde a vez
-// ==========================================================
-
 if (estado == "heroi_atordoado")
 {
     timer++;
@@ -282,11 +237,6 @@ if (estado == "heroi_atordoado")
         proximo_heroi(heroi_indice + 1);
     }
 }
-
-
-// ==========================================================
-// TRANSIÇÃO PARA A PRÓXIMA ONDA
-// ==========================================================
 
 if (estado == "transicao_onda")
 {
@@ -315,11 +265,6 @@ if (estado == "transicao_onda")
     }
 }
 
-
-// ==========================================================
-// ENTRADA DA NOVA ONDA (pausa dramática)
-// ==========================================================
-
 if (estado == "entrada_onda")
 {
     timer++;
@@ -332,11 +277,6 @@ if (estado == "entrada_onda")
     }
 }
 
-
-// ==========================================================
-// TURNO DOS INIMIGOS
-// ==========================================================
-
 if (estado == "turno_inimigos")
 {
     timer++;
@@ -345,7 +285,6 @@ if (estado == "turno_inimigos")
     {
         timer = 0;
 
-        // Pula inimigos que já morreram nesta mesma rodada
         while (
             inimigo_indice < inimigo_limite &&
             inimigo_indice < array_length(inimigos) &&
@@ -370,11 +309,6 @@ if (estado == "turno_inimigos")
     }
 }
 
-
-// ==========================================================
-// FIM DA RODADA (fogo, veneno e escudos)
-// ==========================================================
-
 if (estado == "fim_rodada")
 {
     timer++;
@@ -386,11 +320,6 @@ if (estado == "fim_rodada")
         apos_rodada();
     }
 }
-
-
-// ==========================================================
-// VITÓRIA
-// ==========================================================
 
 if (estado == "vitoria")
 {
@@ -412,11 +341,6 @@ if (estado == "vitoria")
         }
     }
 }
-
-
-// ==========================================================
-// DERROTA
-// ==========================================================
 
 if (estado == "derrota")
 {

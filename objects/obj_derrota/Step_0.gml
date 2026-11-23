@@ -1,4 +1,3 @@
-
 if (mouse_check_button_pressed(mb_left))
 {
     var mx = device_mouse_x_to_gui(0);

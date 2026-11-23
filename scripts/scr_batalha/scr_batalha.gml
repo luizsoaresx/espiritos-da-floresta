@@ -1,10 +1,3 @@
-// ==========================================================
-// SCR_BATALHA - Funções auxiliares do combate em equipe
-// ==========================================================
-
-
-// Retorna o índice do próximo combatente vivo na lista,
-// começando em _inicio (inclusive). -1 se não houver nenhum.
 function bt_proximo_vivo(_lista, _inicio)
 {
     for (var i = _inicio; i < array_length(_lista); i++)
@@ -20,8 +13,6 @@ function bt_proximo_vivo(_lista, _inicio)
     return -1;
 }
 
-
-// Quantos combatentes da lista ainda estão vivos
 function bt_contar_vivos(_lista)
 {
     var _n = 0;
@@ -39,8 +30,6 @@ function bt_contar_vivos(_lista)
     return _n;
 }
 
-
-// Um combatente vivo aleatório da lista (noone se não houver)
 function bt_alvo_aleatorio_vivo(_lista)
 {
     var _vivos = [];
@@ -63,10 +52,6 @@ function bt_alvo_aleatorio_vivo(_lista)
     return _vivos[irandom(array_length(_vivos) - 1)];
 }
 
-
-// Aplica dano, cura ou escudo a UM alvo e dispara a animação/efeito visual.
-// O escudo (Curupira) reduz o dano recebido pela metade.
-// Retorna o valor que realmente foi aplicado.
 function bt_aplicar_efeito(_alvo, _tipo, _valor)
 {
     if (!instance_exists(_alvo) || _alvo.hp <= 0)
@@ -123,8 +108,6 @@ function bt_aplicar_efeito(_alvo, _tipo, _valor)
     return _efetivo;
 }
 
-
-// Mostra um texto flutuante sobre o combatente (ex.: "ERROU!")
 function bt_texto_flutuante(_alvo, _texto, _cor)
 {
     if (!instance_exists(_alvo))
@@ -137,14 +120,6 @@ function bt_texto_flutuante(_alvo, _texto, _cor)
     _alvo.dano_timer = game_get_speed(gamespeed_fps);
 }
 
-
-// Aplica um efeito de status. Retorna true se algo mudou.
-//   "atordoar"  -> perde a próxima vez
-//   "confundir" -> 50% de chance de errar o ataque
-//   "queimar"   -> dano de fogo no fim de cada rodada
-//   "envenenar" -> dano de veneno no fim de cada rodada
-//   "escudo"    -> recebe metade do dano
-//   "purificar" -> remove fogo e veneno
 function bt_aplicar_status(_alvo, _efeito, _turnos, _valor)
 {
     if (!instance_exists(_alvo) || _alvo.hp <= 0)
@@ -191,8 +166,6 @@ function bt_aplicar_status(_alvo, _efeito, _turnos, _valor)
     return false;
 }
 
-
-// Frase curta que complementa a mensagem quando um efeito pega
 function bt_texto_efeito(_efeito, _qtd)
 {
     switch (_efeito)
@@ -208,8 +181,6 @@ function bt_texto_efeito(_efeito, _qtd)
     return "";
 }
 
-
-// Texto curto que aparece embaixo do nome do ataque no botão
 function bt_descricao_ataque(_tipo, _valor, _alvo, _efeito, _chance)
 {
     var _txt = "";
@@ -249,8 +220,6 @@ function bt_descricao_ataque(_tipo, _valor, _alvo, _efeito, _chance)
     return _txt;
 }
 
-
-// Lê o ataque 1 ou 2 de um herói como struct
 function bt_ler_acao(_heroi, _n)
 {
     if (_n == 1)
@@ -279,8 +248,6 @@ function bt_ler_acao(_heroi, _n)
     };
 }
 
-
-// Dispara a animação de ataque de quem está agindo
 function bt_animar_ataque(_atacante)
 {
     if (!instance_exists(_atacante))
@@ -292,12 +259,6 @@ function bt_animar_ataque(_atacante)
     _atacante.animacao_timer = 0;
 }
 
-
-// ==========================================================
-// POSICIONAMENTO
-// ==========================================================
-
-// Até 3 heróis: formação original. 4 heróis: duas colunas.
 function bt_posicoes_herois(_n)
 {
     if (_n >= 4)
@@ -317,8 +278,6 @@ function bt_posicoes_herois(_n)
     ];
 }
 
-
-// Posições automáticas dos inimigos comuns (lado direito)
 function bt_posicoes_inimigos(_n)
 {
     switch (_n)
@@ -341,8 +300,6 @@ function bt_posicoes_inimigos(_n)
     ];
 }
 
-
-// Ajusta um combatente recém-posicionado para a batalha
 function bt_preparar(_c, _lado, _compacto)
 {
     if (!instance_exists(_c))
@@ -358,14 +315,8 @@ function bt_preparar(_c, _lado, _compacto)
     _c.hud_altura = (_lado == "heroi") ? 120 : 128;
     _c.hp_visual = _c.hp;
 
-    // quem está mais embaixo é desenhado na frente
     _c.depth = -round(_c.y);
 }
-
-
-// ==========================================================
-// INTERFACE DO COMBATENTE (placa, status e números)
-// ==========================================================
 
 function bt_desenhar_hud(_c, _destaque)
 {
@@ -376,7 +327,6 @@ function bt_desenhar_hud(_c, _destaque)
 
     ui_init();
 
-    // barra de vida com "rastro" suave
     _c.hp_visual = lerp(_c.hp_visual, _c.hp, 0.08);
 
     if (abs(_c.hp_visual - _c.hp) < 0.5)
@@ -404,7 +354,6 @@ function bt_desenhar_hud(_c, _destaque)
         _alt = 36;
     }
 
-    // seta indicando de quem é a vez
     if (_destaque)
     {
         var _b = sin(current_time / 160) * 3;

@@ -1,7 +1,3 @@
-// ==========================================
-// FIM DE JOGO: A NATUREZA VENCEU
-// ==========================================
-
 ui_begin();
 
 draw_sprite_ext(spr_capa_fundo, 0, 0, 0, 1, 1, 0, c_white, 1);
@@ -24,8 +20,6 @@ ui_texto(480, 128, "O Devorador foi derrotado e as lendas do Brasil protegeram",
 ui_texto(480, 150, "as florestas, os rios, o Cerrado, a Mata Atlântica e o Pantanal.", global.ui_cor_creme, global.ui_f_texto);
 ui_texto(480, 180, "Mas a luta pela natureza continua - e ela também depende de nós.", make_color_rgb(235, 205, 120), global.ui_f_texto);
 
-
-// lendas lado a lado
 var _n = array_length(sprites_final);
 var _esp = 128;
 var _x0 = 480 - (_n - 1) * _esp / 2;
