@@ -77,9 +77,10 @@ function ui_texto_ex(_x, _y, _texto, _cor, _fonte, _halign, _valign, _sombra)
 
     if (_sombra)
     {
+        var d = (_fonte == global.ui_f_titulo || _fonte == global.ui_f_subtitulo) ? 2 : 1;
         draw_set_alpha(a * 0.85);
         draw_set_color(global.ui_cor_sombra);
-        draw_text(_x + 2, _y + 2, _texto);
+        draw_text(_x + d, _y + d, _texto);
         draw_set_alpha(a);
     }
 
