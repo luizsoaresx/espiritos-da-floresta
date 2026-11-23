@@ -1,10 +1,8 @@
-// Congela animações enquanto o jogo está pausado
 if (global.pausado)
 {
     exit;
 }
 
-// Inimigo derrotado: some aos poucos
 if (morrendo)
 {
     morte_timer++;
@@ -32,8 +30,6 @@ else
 {
     efeito_dano = false;
 }
-
-// dir_ataque: heróis avançam para a direita (+1), inimigos para a esquerda (-1)
 
 if (animacao_combate == "ataque")
 {

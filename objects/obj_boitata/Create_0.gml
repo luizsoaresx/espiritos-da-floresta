@@ -1,4 +1,3 @@
-// BOITATÁ - QUEIMADURA (dano contínuo)
 event_inherited();
 
 nome = "Boitatá";
@@ -25,8 +24,6 @@ ataque2_chance = 100;
 ataque2_turnos = 2;
 ataque2_efeito_valor = 5;
 
-
-// Heróis ficam à esquerda olhando para a direita
 escala_sprite = 2;
 image_xscale = -escala_sprite;
 image_yscale = escala_sprite;

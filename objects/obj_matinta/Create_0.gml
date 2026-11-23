@@ -1,4 +1,3 @@
-// MATINTA PEREIRA - AOE
 event_inherited();
 
 nome = "Matinta Pereira";
@@ -17,8 +16,6 @@ ataque2_tipo = "dano";
 ataque2_alvo = "inimigo_todos";
 ataque2_valor = 14;
 
-
-// Heróis ficam à esquerda olhando para a direita
 escala_sprite = 2;
 image_xscale = -escala_sprite;
 image_yscale = escala_sprite;

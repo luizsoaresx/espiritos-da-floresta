@@ -1,7 +1,3 @@
-// ==========================================
-// EVITAR DUPLICAÇÃO
-// ==========================================
-
 if (variable_global_exists("dados_jogo_inicializados"))
 {
     instance_destroy();
@@ -10,17 +6,7 @@ if (variable_global_exists("dados_jogo_inicializados"))
 
 global.dados_jogo_inicializados = true;
 
-
-// ==========================================
-// DADOS DOS PERSONAGENS
-// (o índice é o mesmo usado na equipe e na batalha)
-// ==========================================
-
 global.personagens = [
-
-    // ======================================
-    // 0 - LOBISOMEM
-    // ======================================
 
     {
         nome: "Lobisomem",
@@ -45,11 +31,6 @@ global.personagens = [
         desbloqueado: true
     },
 
-
-    // ======================================
-    // 1 - IARA
-    // ======================================
-
     {
         nome: "Iara",
         sprite: spr_iara_idle,
@@ -73,11 +54,6 @@ global.personagens = [
         desbloqueado: false
     },
 
-
-    // ======================================
-    // 2 - MATINTA PEREIRA
-    // ======================================
-
     {
         nome: "Matinta",
         sprite: spr_matinta_idle,
@@ -100,11 +76,6 @@ global.personagens = [
 
         desbloqueado: false
     },
-
-
-    // ======================================
-    // 3 - BOITATÁ
-    // ======================================
 
     {
         nome: "Boitatá",
@@ -130,11 +101,6 @@ global.personagens = [
         desbloqueado: false
     },
 
-
-    // ======================================
-    // 4 - SACI-PERERÊ
-    // ======================================
-
     {
         nome: "Saci-Pererê",
         sprite: spr_saci_idle,
@@ -158,11 +124,6 @@ global.personagens = [
 
         desbloqueado: false
     },
-
-
-    // ======================================
-    // 5 - CURUPIRA
-    // ======================================
 
     {
         nome: "Curupira",
@@ -189,30 +150,12 @@ global.personagens = [
     }
 ];
 
-
-// ==========================================
-// FASES
-// ==========================================
-
 global.fases = fases_criar();
 
 global.fase_desbloqueada = 1;
 
-// Fase escolhida na seleção (1 a 6)
 global.fase_atual = 1;
 
-
-// ==========================================
-// EQUIPE
-// ==========================================
-
-// -1 significa vazio (até 4 vagas)
-
 global.equipe = [-1, -1, -1, -1];
-
-
-// ==========================================
-// RECOMPENSA ATUAL
-// ==========================================
 
 global.personagem_recompensa = -1;

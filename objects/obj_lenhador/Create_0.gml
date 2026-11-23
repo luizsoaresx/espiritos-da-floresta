@@ -1,4 +1,3 @@
-// LENHADOR (motosserrista)
 event_inherited();
 
 nome = "Lenhador";
@@ -9,7 +8,6 @@ hp_visual = hp;
 
 ataque_dano = 12;
 
-// Inimigos ficam à direita olhando para a esquerda
 escala_sprite = 4;
 image_xscale = -escala_sprite;
 image_yscale = escala_sprite;

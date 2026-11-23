@@ -1,16 +1,7 @@
-// ==========================================
-// CLIQUE
-// ==========================================
-
 if (mouse_check_button_pressed(mb_left))
 {
     var mx = device_mouse_x_to_gui(0);
     var my = device_mouse_y_to_gui(0);
-
-
-    // ==========================================
-    // CARDS DOS PERSONAGENS: ADICIONAR / REMOVER
-    // ==========================================
 
     for (var i = 0; i < n_personagens; i++)
     {
@@ -24,7 +15,6 @@ if (mouse_check_button_pressed(mb_left))
         {
             var encontrado = false;
 
-            // se já está na equipe, sai
             for (var s = 0; s < vagas; s++)
             {
                 if (slots[s] == i)
@@ -34,7 +24,6 @@ if (mouse_check_button_pressed(mb_left))
                 }
             }
 
-            // se não estava, entra no primeiro slot vazio
             if (!encontrado)
             {
                 for (var s = 0; s < vagas; s++)
@@ -49,11 +38,6 @@ if (mouse_check_button_pressed(mb_left))
         }
     }
 
-
-    // ==========================================
-    // CLICAR NOS SLOTS PARA REMOVER
-    // ==========================================
-
     for (var s = 0; s < vagas; s++)
     {
         if (
@@ -67,11 +51,6 @@ if (mouse_check_button_pressed(mb_left))
         }
     }
 
-
-    // ==========================================
-    // COMEÇAR
-    // ==========================================
-
     if (
         mx >= botao_comecar_x &&
         mx <= botao_comecar_x + botao_comecar_largura &&
@@ -79,11 +58,9 @@ if (mouse_check_button_pressed(mb_left))
         my <= botao_comecar_y + botao_comecar_altura
     )
     {
-        // Pelo menos um personagem precisa estar escolhido.
 
         if (equipe_ok())
         {
-            // Salvar equipe globalmente (sempre 4 posições)
             global.equipe = [-1, -1, -1, -1];
 
             for (var s = 0; s < vagas; s++)
@@ -94,11 +71,6 @@ if (mouse_check_button_pressed(mb_left))
             room_goto(fase_dados(global.fase_atual).sala);
         }
     }
-
-
-    // ==========================================
-    // VOLTAR PARA A SELEÇÃO DE FASES
-    // ==========================================
 
     if (
         mx >= botao_voltar_x &&

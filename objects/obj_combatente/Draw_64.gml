@@ -1,8 +1,3 @@
-// ==========================================
-// DESENHO DO COMBATENTE (a placa de vida, os
-// status e os números são desenhados pela batalha)
-// ==========================================
-
 if (!visible)
 {
     exit;
@@ -13,7 +8,6 @@ ui_init();
 var _alpha = image_alpha;
 var _cor = c_white;
 
-// herói caído fica apagado
 if (lado == "heroi" && hp <= 0)
 {
     _alpha = image_alpha * 0.35;
@@ -28,8 +22,6 @@ if (furia)
 var _cx = (bbox_left + bbox_right) / 2;
 var _cy = (bbox_top + bbox_bottom) / 2;
 
-
-// sombra no chão
 if (sombra)
 {
     var _sw = (bbox_right - bbox_left) * 0.36;
@@ -40,8 +32,6 @@ if (sombra)
     draw_set_alpha(1);
 }
 
-
-// bolha do escudo (atrás)
 if (escudo_turnos > 0 && hp > 0)
 {
     var _r = max(bbox_right - bbox_left, bbox_bottom - bbox_top) * 0.55;
@@ -55,8 +45,6 @@ if (escudo_turnos > 0 && hp > 0)
     draw_set_alpha(1);
 }
 
-
-// sprite (pisca claro ao receber dano)
 if (efeito_dano)
 {
     gpu_set_blendmode(bm_add);
@@ -70,8 +58,6 @@ else
     draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, _cor, _alpha);
 }
 
-
-// queimando / envenenado: brilho piscando por cima
 if (dot_turnos > 0 && hp > 0)
 {
     var _pulso = 0.15 + 0.12 * sin(current_time / 120);
@@ -82,8 +68,6 @@ if (dot_turnos > 0 && hp > 0)
     gpu_set_blendmode(bm_normal);
 }
 
-
-// atordoado: estrelinhas girando sobre a cabeça
 if (atordoado > 0 && hp > 0)
 {
     var _t = current_time / 260;
@@ -101,8 +85,6 @@ if (atordoado > 0 && hp > 0)
     }
 }
 
-
-// confuso: pontos de interrogação roxos
 if (confuso > 0 && hp > 0)
 {
     var _b = sin(current_time / 200) * 3;

@@ -1,25 +1,11 @@
-// ==========================================
-// SELEÇÃO DE FASES
-// ==========================================
-
 ui_begin();
 
 ui_fundo();
 ui_vagalumes(18);
 ui_moldura();
 
-
-// ==========================================
-// TÍTULO
-// ==========================================
-
 ui_titulo(62, "SELECIONE UMA FASE");
 ui_divisor(480, 98, 440);
-
-
-// ==========================================
-// CARTÕES
-// ==========================================
 
 var _total = fases_total();
 
@@ -56,11 +42,6 @@ for (var i = 0; i < _total; i++)
 
     ui_cartao_fase_compacto(_x, _y, largura, altura, _f.rotulo, _f.nome, _desc, _extra, _liberada, _sobre, _f.fundo, _f.recompensa < 0);
 }
-
-
-// ==========================================
-// BOTÃO VOLTAR
-// ==========================================
 
 ui_botao(
     botao_voltar_x,

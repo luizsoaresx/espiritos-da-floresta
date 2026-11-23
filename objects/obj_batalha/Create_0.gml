@@ -1,7 +1,3 @@
-// ==========================================================
-// CONFIGURAÇÃO DA FASE (tabela completa em scr_fases)
-// ==========================================================
-
 if (!variable_global_exists("fase_atual"))
 {
     global.fase_atual = 1;
@@ -21,17 +17,10 @@ onda_atual = 0;
 
 inimigos = [];
 
-// Lugares dos ajudantes quando há um chefe na onda
 slots_ajudantes = [
     { x: 548, y: 330 },
     { x: 548, y: 172 }
 ];
-
-
-// ==========================================================
-// EQUIPE: CRIAR OS PERSONAGENS ESCOLHIDOS
-// (índices iguais aos de global.personagens)
-// ==========================================================
 
 heroi_objetos = [obj_lobo, obj_iara, obj_matinta, obj_boitata, obj_saci, obj_curupira];
 
@@ -54,7 +43,6 @@ for (var i = 0; i < array_length(global.equipe); i++)
     }
 }
 
-// Segurança: se por algum motivo não há ninguém na equipe
 if (array_length(_ids) == 0)
 {
     array_push(_ids, 0);
@@ -72,12 +60,6 @@ for (var i = 0; i < _n_herois; i++)
     array_push(herois, _inst);
 }
 
-
-// ==========================================================
-// FUNÇÕES DA BATALHA
-// ==========================================================
-
-// Posiciona os inimigos recém-criados de uma onda
 posicionar_inimigos = function(_lista)
 {
     var _chefes = [];
@@ -137,8 +119,6 @@ posicionar_inimigos = function(_lista)
     }
 };
 
-
-// Cria os inimigos da onda _indice
 criar_onda = function(_indice)
 {
     var _entradas = ondas[_indice];
@@ -165,8 +145,6 @@ criar_onda = function(_indice)
     return _lista;
 };
 
-
-// Chefe chama um reforço para um lugar livre
 invocar = function(_chefe)
 {
     if (_chefe.invoca_obj == noone)
@@ -204,8 +182,6 @@ invocar = function(_chefe)
     return noone;
 };
 
-
-// Remove inimigos derrotados da lista (eles somem aos poucos)
 limpar_inimigos = function()
 {
     var _restantes = [];
@@ -227,9 +203,6 @@ limpar_inimigos = function()
     inimigos = _restantes;
 };
 
-
-// Passa a vez para o próximo herói vivo a partir de _inicio.
-// Se não houver mais heróis, começa o turno dos inimigos.
 proximo_heroi = function(_inicio)
 {
     var _prox = bt_proximo_vivo(herois, _inicio);
@@ -271,8 +244,6 @@ proximo_heroi = function(_inicio)
     timer = 0;
 };
 
-
-// Executa a ação escolhida pelo herói nos alvos da lista
 executar_acao = function(_alvos)
 {
     bt_animar_ataque(heroi_atual);
@@ -299,7 +270,6 @@ executar_acao = function(_alvos)
         {
             var _chance = acao.chance;
 
-            // chefes resistem a ser atordoados
             if (acao.efeito == "atordoar" && _t.eh_chefe)
             {
                 _chance = _chance * 0.5;
@@ -334,11 +304,8 @@ executar_acao = function(_alvos)
     timer = 0;
 };
 
-
-// Ação de um inimigo no turno dele
 acao_inimigo = function(_ini)
 {
-    // atordoado: perde a vez
     if (_ini.atordoado > 0)
     {
         _ini.atordoado--;
@@ -350,7 +317,6 @@ acao_inimigo = function(_ini)
 
     _ini.contador_turnos++;
 
-    // fúria: chefe com pouca vida fica mais forte
     if (_ini.furia_limite > 0 && !_ini.furia && _ini.hp <= _ini.hp_max * _ini.furia_limite)
     {
         _ini.furia = true;
@@ -365,7 +331,6 @@ acao_inimigo = function(_ini)
         return;
     }
 
-    // reforços
     if (
         _ini.invoca_turnos > 0 &&
         _ini.contador_turnos mod _ini.invoca_turnos == 0 &&
@@ -396,7 +361,6 @@ acao_inimigo = function(_ini)
     var _especial = false;
     var _alvos = [];
 
-    // Ataque especial periódico (ex.: Lama Tóxica da Draga), atinge todo o time
     if (_ini.ataque_especial_turnos > 0 && _ini.contador_turnos mod _ini.ataque_especial_turnos == 0)
     {
         _especial = true;
@@ -422,7 +386,6 @@ acao_inimigo = function(_ini)
 
     bt_animar_ataque(_ini);
 
-    // confuso pelas pegadas do Curupira: pode errar
     if (_ini.confuso > 0)
     {
         _ini.confuso--;
@@ -478,8 +441,6 @@ acao_inimigo = function(_ini)
     }
 };
 
-
-// Fim da rodada: fogo e veneno causam dano, escudos perdem 1 turno
 fim_da_rodada = function()
 {
     var _houve = false;
@@ -530,8 +491,6 @@ fim_da_rodada = function()
     timer = 0;
 };
 
-
-// Depois da rodada: derrota, fim da onda ou nova rodada
 apos_rodada = function()
 {
     limpar_inimigos();
@@ -554,8 +513,6 @@ apos_rodada = function()
     }
 };
 
-
-// Todos os inimigos da onda caíram
 fim_da_onda = function()
 {
     if (onda_atual < array_length(ondas) - 1)
@@ -569,7 +526,6 @@ fim_da_onda = function()
         return;
     }
 
-    // Recompensa só na primeira vez que a lenda é resgatada
     if (recompensa_id >= 0 && !global.personagens[recompensa_id].desbloqueado)
     {
         global.personagem_recompensa = recompensa_id;
@@ -581,7 +537,6 @@ fim_da_onda = function()
         global.personagem_recompensa = -1;
     }
 
-    // Libera a próxima fase
     global.fase_desbloqueada = max(global.fase_desbloqueada, min(global.fase_atual + 1, fases_total()));
 
     mensagem = "Vitória!";
@@ -591,17 +546,7 @@ fim_da_onda = function()
     timer = 0;
 };
 
-
-// ==========================================================
-// PRIMEIRA ONDA DE INIMIGOS
-// ==========================================================
-
 inimigos = criar_onda(0);
-
-
-// ==========================================================
-// ESTADO DO COMBATE
-// ==========================================================
 
 heroi_indice = bt_proximo_vivo(herois, 0);
 heroi_atual = herois[heroi_indice];
@@ -609,16 +554,14 @@ heroi_atual = herois[heroi_indice];
 inimigo_indice = 0;
 inimigo_limite = 0;
 
-// Ação escolhida pelo herói da vez, aguardando alvo
 acao = bt_ler_acao(heroi_atual, 1);
-acao_alvo_cat = "";     // "inimigo" ou "aliado"
+acao_alvo_cat = "";
 
 estado = "jogador_ataque";
 
 mensagem = heroi_atual.nome + ", escolha um ataque!";
 
 timer = 0;
-
 
 botao_largura = 250;
 botao_altura = 56;
@@ -628,26 +571,17 @@ botao2_x = 495;
 
 botao_y = 440;
 
-
-// ==========================================================
-// PAUSA
-// ==========================================================
-
-// Desenha por cima dos combatentes (que desenham no GUI)
 depth = -1000;
 
 global.pausado = false;
 
-// "" = menu de pausa, "menu" ou "reiniciar" = pedindo confirmação
 pausa_confirmar = "";
 
-// Botão de pausar (canto superior direito)
 pausa_btn_x1 = 896;
 pausa_btn_y1 = 12;
 pausa_btn_x2 = 940;
 pausa_btn_y2 = 44;
 
-// Botões do menu de pausa
 pausa_btn_largura = 300;
 pausa_btn_altura = 52;
 pausa_btn_x = 330;
@@ -656,15 +590,12 @@ pausa_continuar_y = 218;
 pausa_reiniciar_y = 282;
 pausa_menu_y = 346;
 
-// Botões da confirmação
 pausa_sim_x = 320;
 pausa_nao_x = 490;
 pausa_conf_y = 332;
 pausa_conf_largura = 150;
 pausa_conf_altura = 52;
 
-
-// Congela/retoma a animação de todos os combatentes
 congelar_anim = function(_v)
 {
     with (obj_combatente)

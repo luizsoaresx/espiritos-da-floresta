@@ -1,36 +1,17 @@
-// ==========================================
-// FORMAÇÃO DE EQUIPE
-// ==========================================
-
 ui_begin();
 
 ui_fundo();
 ui_vagalumes(14);
 ui_moldura();
 
-
-// ==========================================
-// TÍTULO
-// ==========================================
-
 var _f = fase_dados(global.fase_atual);
 
 ui_texto(480, 50, "FORMAÇÃO DE EQUIPE", global.ui_cor_ouro, global.ui_f_titulo);
 ui_texto(480, 82, _f.rotulo + " · " + _f.nome + " - escolha até " + string(vagas) + " lendas", make_color_rgb(200, 200, 180), global.ui_f_texto);
 
-
-// ==========================================
-// ÁREA DA EQUIPE
-// ==========================================
-
 ui_painel(70, 102, 890, 294, make_color_rgb(34, 50, 38), global.ui_cor_ouro, 0.95);
 
 ui_texto(480, 118, "SUA EQUIPE", global.ui_cor_ouro, global.ui_f_botao);
-
-
-// ==========================================
-// SLOTS
-// ==========================================
 
 for (var i = 0; i < vagas; i++)
 {
@@ -55,7 +36,6 @@ for (var i = 0; i < vagas; i++)
 
     ui_painel(sx, equipe_y, sx + card_largura, equipe_y + card_altura, make_color_rgb(30, 40, 32), borda_slot);
 
-    // número do slot
     draw_set_color(make_color_rgb(70, 58, 30));
     draw_circle(sx + 17, equipe_y + 17, 11, false);
     draw_set_color(global.ui_cor_ouro);
@@ -80,11 +60,6 @@ for (var i = 0; i < vagas; i++)
         ui_texto(cx, equipe_y + 110, "VAZIO", make_color_rgb(120, 120, 110), global.ui_f_pequeno);
     }
 }
-
-
-// ==========================================
-// PERSONAGENS DISPONÍVEIS
-// ==========================================
 
 ui_texto(480, 312, "LENDAS DO FOLCLORE", global.ui_cor_ouro, global.ui_f_botao);
 
@@ -133,7 +108,6 @@ for (var i = 0; i < n_personagens; i++)
     {
         ui_painel(px, personagem_y, px + personagem_largura, personagem_y + personagem_altura, make_color_rgb(38, 42, 38), make_color_rgb(95, 90, 70));
 
-        // silhueta misteriosa
         draw_sprite_ext(p.sprite, 0, pcx, personagem_y + 44, 0.42, 0.42, 0, c_black, 0.55);
 
         ui_cadeado(pcx, personagem_y + 34, make_color_rgb(150, 135, 95));
@@ -141,11 +115,6 @@ for (var i = 0; i < n_personagens; i++)
         ui_texto(pcx, personagem_y + 90, "BLOQUEADO", make_color_rgb(130, 130, 120), global.ui_f_texto);
     }
 }
-
-
-// ==========================================
-// BOTÕES
-// ==========================================
 
 var pode_comecar = equipe_ok();
 

@@ -1,7 +1,3 @@
-// ==========================================
-// INTERFACE DA BATALHA
-// ==========================================
-
 ui_begin();
 
 if (array_length(herois) == 0)
@@ -9,11 +5,6 @@ if (array_length(herois) == 0)
     ui_fim();
     exit;
 }
-
-
-// ==========================================
-// FAIXA SUPERIOR
-// ==========================================
 
 draw_set_alpha(0.75);
 draw_set_color(make_color_rgb(10, 20, 15));
@@ -24,11 +15,6 @@ draw_set_color(global.ui_cor_ouro);
 draw_roundrect_ext(300, 12, 660, 44, 10, 10, true);
 
 ui_texto(480, 28, fase.rotulo + " · Onda " + string(onda_atual + 1) + " de " + string(array_length(ondas)), global.ui_cor_creme, global.ui_f_texto);
-
-
-// ==========================================
-// PLACAS DE VIDA, STATUS E NÚMEROS
-// ==========================================
 
 var _vez = (estado == "jogador_ataque" || estado == "jogador_alvo");
 
@@ -41,11 +27,6 @@ for (var i = 0; i < array_length(inimigos); i++)
 {
     bt_desenhar_hud(inimigos[i], estado == "turno_inimigos" && i == inimigo_indice - 1 && timer < 30);
 }
-
-
-// ==========================================
-// DESTAQUE DOS ALVOS SELECIONÁVEIS
-// ==========================================
 
 if (estado == "jogador_alvo")
 {
@@ -66,17 +47,7 @@ if (estado == "jogador_alvo")
     }
 }
 
-
-// ==========================================
-// PAINEL INFERIOR
-// ==========================================
-
 ui_painel(40, 396, 920, 506, make_color_rgb(20, 38, 28), global.ui_cor_ouro, 0.94);
-
-
-// ==========================================
-// INDICADOR DE TURNO + MENSAGEM
-// ==========================================
 
 var tag = "";
 var tag_cor = make_color_rgb(40, 120, 65);
@@ -130,16 +101,8 @@ draw_set_color(global.ui_cor_ouro);
 draw_line(60, 435, 900, 435);
 draw_set_alpha(1);
 
-
-// ==========================================
-// BOTÕES
-// ==========================================
-
 if (estado == "jogador_alvo")
 {
-    // ------------------------------------------
-    // BOTÃO CANCELAR (ocupa o espaço dos 2 ataques)
-    // ------------------------------------------
 
     ui_botao(
         botao1_x,
@@ -187,11 +150,6 @@ else
     }
 }
 
-
-// ==========================================
-// BOTÃO DE PAUSA
-// ==========================================
-
 ui_botao(
     pausa_btn_x1,
     pausa_btn_y1,
@@ -204,14 +162,8 @@ ui_botao(
 
 ui_texto(pausa_btn_x1 + (pausa_btn_x2 - pausa_btn_x1) / 2, pausa_btn_y2 + 10, "ESC", make_color_rgb(150, 160, 130), global.ui_f_pequeno);
 
-
-// ==========================================
-// TELA DE PAUSA
-// ==========================================
-
 if (global.pausado)
 {
-    // Escurece a batalha
 
     draw_set_alpha(0.68);
     draw_set_color(make_color_rgb(4, 10, 7));
@@ -220,12 +172,8 @@ if (global.pausado)
 
     ui_painel(290, 100, 670, 440, make_color_rgb(22, 42, 30), global.ui_cor_ouro, 0.97);
 
-
     if (pausa_confirmar == "")
     {
-        // ------------------------------
-        // MENU DE PAUSA
-        // ------------------------------
 
         ui_texto(480, 148, "PAUSADO", global.ui_cor_ouro, global.ui_f_titulo);
         ui_divisor(480, 184, 300);
@@ -255,9 +203,6 @@ if (global.pausado)
     }
     else
     {
-        // ------------------------------
-        // CONFIRMAÇÃO
-        // ------------------------------
 
         var _titulo = (pausa_confirmar == "menu") ? "SAIR PARA O MENU?" : "REINICIAR BATALHA?";
 

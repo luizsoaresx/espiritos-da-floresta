@@ -17,10 +17,15 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2026.0.0.16",
+    "IDEVersion":"2026.1.0.27",
   },
   "name":"EspiritosDaFloresta_V4",
   "resources":[
+    {"id":{"name":"fnt_botao","path":"fonts/fnt_botao/fnt_botao.yy",},},
+    {"id":{"name":"fnt_pequeno","path":"fonts/fnt_pequeno/fnt_pequeno.yy",},},
+    {"id":{"name":"fnt_subtitulo","path":"fonts/fnt_subtitulo/fnt_subtitulo.yy",},},
+    {"id":{"name":"fnt_texto","path":"fonts/fnt_texto/fnt_texto.yy",},},
+    {"id":{"name":"fnt_titulo","path":"fonts/fnt_titulo/fnt_titulo.yy",},},
     {"id":{"name":"obj_aviao_pulverizador","path":"objects/obj_aviao_pulverizador/obj_aviao_pulverizador.yy",},},
     {"id":{"name":"obj_batalha","path":"objects/obj_batalha/obj_batalha.yy",},},
     {"id":{"name":"obj_boitata","path":"objects/obj_boitata/obj_boitata.yy",},},

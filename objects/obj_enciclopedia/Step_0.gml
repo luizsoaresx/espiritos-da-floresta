@@ -3,10 +3,6 @@ if (mouse_check_button_pressed(mb_left))
     var mx = device_mouse_x_to_gui(0);
     var my = device_mouse_y_to_gui(0);
 
-    // ==========================================
-    // SE ESTAMOS NO ÁLBUM
-    // ==========================================
-
     if (personagem_selecionado == -1)
     {
         var _n = min(array_length(global.personagens), array_length(cards_x));
@@ -30,10 +26,6 @@ if (mouse_check_button_pressed(mb_left))
             personagem_selecionado = _clicou;
         }
 
-        // ==========================================
-        // VOLTAR PARA O MENU
-        // ==========================================
-
         else if (
             mx >= botao_voltar_x &&
             mx <= botao_voltar_x + botao_voltar_largura &&
@@ -44,10 +36,6 @@ if (mouse_check_button_pressed(mb_left))
             room_goto(rm_menu);
         }
     }
-
-    // ==========================================
-    // SE ESTAMOS NA PÁGINA DO PERSONAGEM
-    // ==========================================
 
     else
     {

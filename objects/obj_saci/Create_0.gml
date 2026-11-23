@@ -1,4 +1,3 @@
-// SACI-PERERÊ - CONTROLE
 event_inherited();
 
 nome = "Saci-Pererê";
@@ -21,8 +20,6 @@ ataque2_chance = 40;
 ataque2_turnos = 1;
 ataque2_efeito_valor = 0;
 
-
-// Heróis ficam à esquerda olhando para a direita
 escala_sprite = 2;
 image_xscale = -escala_sprite;
 image_yscale = escala_sprite;

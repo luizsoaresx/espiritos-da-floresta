@@ -1,4 +1,3 @@
-// LOBISOMEM - DPS
 event_inherited();
 
 nome = "Lobisomem";
@@ -17,13 +16,10 @@ ataque2_tipo = "dano";
 ataque2_alvo = "inimigo_um";
 ataque2_valor = 35;
 
-
-// Heróis ficam à esquerda olhando para a direita
 escala_sprite = 2;
 image_xscale = -escala_sprite;
 image_yscale = escala_sprite;
 
-// sprite original não tem sombra própria
 sombra = true;
 
 x_original = x;

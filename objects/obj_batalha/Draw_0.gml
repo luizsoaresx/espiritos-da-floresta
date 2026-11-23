@@ -1,7 +1,3 @@
-// ==========================================
-// CLIMA DA FASE (partículas atrás dos combatentes)
-// ==========================================
-
 if (variable_struct_exists(fase, "clima"))
 {
     ui_init();
